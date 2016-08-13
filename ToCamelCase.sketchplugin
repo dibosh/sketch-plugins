@@ -1,0 +1,23 @@
+function capitalizeFirstLetter(string) {
+    return string.replace(/\w\S*/g, function(word){return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();});
+}
+
+var onRun = function(context) {
+  var selection = context.selection
+  var doc = context.document
+  if ([selection count] < 1) {
+      [doc showMessage: 'Select one or more text layers']
+  }
+  for (var i=0; i<[selection count]; i++) {
+    var layer = selection[i]
+    var className = [layer className]
+    if (className == 'MSTextLayer') {
+        [layer setStringValue: capitalizeFirstLetter([layer stringValue])]
+    } else {
+        [doc showMessage: 'One or more non text layer is selected']
+    }
+  }
+}
+
+onRun(context)
+
