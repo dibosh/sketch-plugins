@@ -1,0 +1,23 @@
+function addPrefix(string, prefix) {
+    if (string.indexOf(prefix) < 0) {
+        return prefix + string;        
+    }
+}
+
+var onRun = function(context) {
+  var selection = context.selection
+  var doc = context.document
+  if ([selection count] > 1) {
+      var prefix = [doc askForUserInput:'The prefix to be added' initialValue:'']
+      for (var i = 0; i < [selection count]; i++) {
+          var layer = selection[i]
+          [layer setName: addPrefix([layer name], prefix)]
+      }
+  } else {
+      [doc showMessage:'Select one or more layers']
+  }
+  
+}
+
+onRun(context)
+
